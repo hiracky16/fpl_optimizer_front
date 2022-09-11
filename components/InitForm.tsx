@@ -1,21 +1,20 @@
-import { useEffect, useState } from "react";
-import { useFpl } from "../hooks/useFpl";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from '../styles/InitForm.module.scss'
-import { GetServerSideProps, GetStaticProps } from "next";
-
-type Props = {
-    teams?: any[]
-}
-
 
 const Form = () => {
     const [budget, setBudget] = useState(80);
-    const [teams, setTeams] = useState([]);
+    const [teams, setTeams] = useState([] as { id: number, name: string }[]);
     useEffect(() => {
         fetch("http://localhost:3000/api/teams")
             .then(data => data.json())
             .then(r => setTeams(r.teams))
     }, [])
+    const [favoriteTeamId, setFavoriteTeamId] = useState(1)
+    const [excludedTeamId, setExcludedTeamId] = useState(1)
+    const onDefaultChange = (event: any, setter: Dispatch<SetStateAction<number>>) => {
+        const newbudget = (event.target as HTMLInputElement).value
+        setter(parseInt(newbudget))
+    }
     return (
         <div className="box">
             <div className="title is-3 has-text-grey-dark">
@@ -31,10 +30,7 @@ const Form = () => {
                         max="100"
                         value={budget}
                         type="range"
-                        onChange={(event) => {
-                            const newbudget = (event.target as HTMLInputElement).value
-                            setBudget(parseInt(newbudget))
-                        }}
+                        onChange={(event) => onDefaultChange(event, setBudget)}
                     />
                 </div>
             </div>
@@ -44,10 +40,10 @@ const Form = () => {
                 </div>
                 <div className="tile is-child">
                     <div className="select">
-                        <select>
+                        <select value={favoriteTeamId} onChange={(event) => onDefaultChange(event, setFavoriteTeamId)}>
                             {
                                 teams.map((team) => {
-                                    return <option key={team.id}>{team.name}</option>;
+                                    return <option key={team.id} value={team.id}>{team.name}</option>;
                                 })
                             }
                         </select>
@@ -60,10 +56,10 @@ const Form = () => {
                 </div>
                 <div className="tile is-child">
                     <div className="select">
-                        <select>
+                        <select value={excludedTeamId} onChange={(event) => onDefaultChange(event, setExcludedTeamId)}>
                             {
                                 teams.map((team) => {
-                                    return <option key={team.id}>{team.name}</option>;
+                                    return <option key={team.id} value={team.id}>{team.name}</option>;
                                 })
                             }
                         </select>

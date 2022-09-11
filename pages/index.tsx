@@ -5,8 +5,6 @@ import styles from '../styles/Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons'
 import InitForm from '../components/InitForm'
-import { useState } from 'react'
-import { useFpl } from '../hooks/useFpl'
 
 const Home: NextPage = () => {
     return (
