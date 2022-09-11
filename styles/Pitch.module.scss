@@ -1,0 +1,28 @@
+.secplayer {
+    padding: 1rem;
+}
+
+.pitch {
+    padding: 40px;
+    min-height: 500px;
+    background-image: url("/images/pitch.png");
+    background-size: 100% 100%;
+}
+
+.playerIcon {
+    background: var(--color1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    border: 0.2em solid;
+    border-color: white;
+    margin: auto;
+}
+
+.playerInfo {
+    text-overflow: ellipsis;
+    overflow: auto;
+}
