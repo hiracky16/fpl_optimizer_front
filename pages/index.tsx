@@ -5,8 +5,17 @@ import styles from '../styles/Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons'
 import InitForm from '../components/InitForm'
+import { useEffect, useState } from 'react'
+import { Element } from '../types/types'
 
 const Home: NextPage = () => {
+    const [elements, setElements] = useState([] as Element[]);
+    useEffect(() => {
+        fetch("http://localhost:3000/api/init_optimize")
+            .then(data => data.json())
+            .then(r => setElements(r.elements))
+    }, [])
+
     return (
         <div className='container'>
             <section className="section">
@@ -20,7 +29,7 @@ const Home: NextPage = () => {
                 <InitForm />
             </section>
             <section className='section'>
-                <Pitch title="イレブン"></Pitch>
+                <Pitch title="イレブン" elements={elements}></Pitch>
             </section>
         </div>
     )

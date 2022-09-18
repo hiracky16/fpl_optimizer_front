@@ -1,9 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-
-type Team = { id: number; name: string; short_name: string };
+import { Element } from '../../types/types'
 type Response = {
-    teams: Array<Team>
+    elements: Array<Element>
 }
 
 export default async function handler(
@@ -11,12 +10,8 @@ export default async function handler(
   res: NextApiResponse<Response>
 ) {
   const response = await fetch(
-    "https://fantasy.premierleague.com/api/bootstrap-static/"
+    `${process.env.BASE_OPTIMIZER_API_URL}/init`
   )
   const obj = await response.json() as Response
-  const teams = obj.teams.map((team: Team) => {
-    const { id, short_name, name } = team
-    return { id, short_name, name }
-  })
-  res.status(200).json({ teams });
+  res.status(200).json(obj);
 }
