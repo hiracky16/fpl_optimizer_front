@@ -4,17 +4,19 @@ import Pitch from '../components/Pitch'
 import styles from '../styles/Home.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons'
-import InitForm from '../components/InitForm'
+import OptimizeForm from '../components/OptimizeForm'
 import { useEffect, useState } from 'react'
 import { Element } from '../types/types'
 
 const Home: NextPage = () => {
     const [elements, setElements] = useState([] as Element[]);
-    useEffect(() => {
-        fetch("http://localhost:3000/api/init_optimize")
+    const [event, setEvent] = useState(1 as number);
+    const updateElement = () => {
+        fetch(`http://localhost:3000/api/optimize?team=2555500&event=${event}`)
             .then(data => data.json())
-            .then(r => setElements(r.elements))
-    }, [])
+            .then(r => setElements(r.current))
+    }
+    useEffect(() => updateElement(), [])
 
     return (
         <div className='container'>
@@ -22,11 +24,11 @@ const Home: NextPage = () => {
                 <div className="title is-2 has-text-grey-dark">
                     {/* <font-awesome-icon icon="microchip" /> */}
                     <FontAwesomeIcon icon={faMicrochip}></FontAwesomeIcon>
-                    初期メンバー最適化
+                    メンバー最適化
                 </div>
             </section>
             <section className='section'>
-                <InitForm />
+                <OptimizeForm event={event} setEvent={setEvent} submit={updateElement} />
             </section>
             <section className='section'>
                 <Pitch title="イレブン" elements={elements}></Pitch>
