@@ -10,12 +10,13 @@ import { Element } from '../types/types'
 
 const Home: NextPage = () => {
     const [elements, setElements] = useState([] as Element[]);
-    const [event, setEvent] = useState(0 as number);
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/optimize?team=2555500&event=14`)
+    const [event, setEvent] = useState(1 as number);
+    const updateElement = () => {
+        fetch(`http://localhost:3000/api/optimize?team=2555500&event=${event}`)
             .then(data => data.json())
             .then(r => setElements(r.current))
-    }, [])
+    }
+    useEffect(() => updateElement(), [])
 
     return (
         <div className='container'>
@@ -27,7 +28,7 @@ const Home: NextPage = () => {
                 </div>
             </section>
             <section className='section'>
-                <OptimizeForm />
+                <OptimizeForm event={event} setEvent={setEvent} submit={updateElement} />
             </section>
             <section className='section'>
                 <Pitch title="イレブン" elements={elements}></Pitch>

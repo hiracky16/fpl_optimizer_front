@@ -1,9 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styles from '../styles/InitForm.module.scss'
 
-const Form = () => {
+type Props = {
+    event: number
+    setEvent: (event: number) => void
+    submit: () => void
+  }
+
+const Form: React.FC<Props> = props => {
     const [budget, setBudget] = useState(80);
-    const [event, setEvent] = useState(1);
     const [teams, setTeams] = useState([] as { id: number, name: string }[]);
     useEffect(() => {
         // TODO: fix
@@ -16,6 +21,11 @@ const Form = () => {
     const onDefaultChange = (event: any, setter: Dispatch<SetStateAction<number>>) => {
         const newbudget = (event.target as HTMLInputElement).value
         setter(parseInt(newbudget))
+    }
+    const onChangeEvent = (e: any) => {
+        const newbudget = (e.target as HTMLInputElement).value
+        const event = parseInt(newbudget)
+        props.setEvent(event)
     }
     return (
         <div className="box">
@@ -37,12 +47,12 @@ const Form = () => {
                 </div>
             </div>
             <div className={`tile is-parent ${styles.formContent}`}>
-                <div className="tile is-child">{event} 節の最適化</div>
+                <div className="tile is-child">{props.event} 節の最適化</div>
                 <div className="tile is-child">
                     <input
-                        value={event}
+                        value={props.event}
                         type="number"
-                        onChange={(event) => onDefaultChange(event, setEvent)}
+                        onChange={(event) => onChangeEvent(event)}
                     />
                 </div>
             </div>
@@ -79,7 +89,7 @@ const Form = () => {
                 </div>
             </div>
             <div className={`${styles.formContent}`}>
-                <button className="button">最適化！</button>
+                <button className="button" onClick={props.submit}>最適化！</button>
             </div>
         </div>
     );
