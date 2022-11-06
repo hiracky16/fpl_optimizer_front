@@ -20,7 +20,6 @@ const Home: NextPage = () => {
         <div className='container'>
             <section className="section">
                 <div className="title is-2 has-text-grey-dark">
-                    {/* <font-awesome-icon icon="microchip" /> */}
                     <FontAwesomeIcon icon={faMicrochip}></FontAwesomeIcon>
                     初期メンバー最適化
                 </div>

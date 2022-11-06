@@ -23,7 +23,8 @@ const Form: React.FC<Props> = props => {
         setter(parseInt(newbudget))
     }
     const onChangeEvent = (e: any) => {
-        const newbudget = (e.target as HTMLInputElement).value
+        let newbudget = (e.target as HTMLInputElement).value
+        newbudget = newbudget ? newbudget : '1'
         const event = parseInt(newbudget)
         props.setEvent(event)
     }
@@ -50,6 +51,9 @@ const Form: React.FC<Props> = props => {
                 <div className="tile is-child">{props.event} 節の最適化</div>
                 <div className="tile is-child">
                     <input
+                        className="input"
+                        min="1"
+                        max="38"
                         value={props.event}
                         type="number"
                         onChange={(event) => onChangeEvent(event)}

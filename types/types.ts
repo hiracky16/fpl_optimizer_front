@@ -6,3 +6,10 @@ export type Element = {
   total_point: number;
   now_cost: number;
 };
+
+export type Team = {
+  id: number;
+  name: string;
+  short_name: string;
+  color: string;
+};
