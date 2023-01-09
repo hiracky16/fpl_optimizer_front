@@ -53,5 +53,6 @@ USER nextjs
 EXPOSE 3000
 
 ENV PORT 3000
+ENV GOOGLE_APPLICATION_CREDENTIALS /credentials/key.json
 
 CMD ["node", "server.js"]

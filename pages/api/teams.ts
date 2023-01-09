@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Team } from '../../types/types'
 
 type Response = {
-    teams: Array<Team>
+    teams: Team[]
 }
 
 // REF: https://teamcolorcodes.com/aston-villa-fc-color-codes/

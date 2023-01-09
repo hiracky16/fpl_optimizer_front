@@ -11,5 +11,5 @@ export type Team = {
   id: number;
   name: string;
   short_name: string;
-  color: string;
+  color: string[];
 };
