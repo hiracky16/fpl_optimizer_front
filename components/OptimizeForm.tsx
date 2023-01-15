@@ -12,7 +12,7 @@ const Form: React.FC<Props> = props => {
     const [teams, setTeams] = useState([] as { id: number, name: string }[]);
     useEffect(() => {
         // TODO: fix
-        fetch("http://localhost:3000/api/teams")
+        fetch("/api/teams")
             .then(data => data.json())
             .then(r => setTeams(r.teams))
     }, [])

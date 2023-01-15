@@ -13,13 +13,13 @@ const Home: NextPage = () => {
     const [teams, setTeams] = useState([] as Team[]);
     const [event, setEvent] = useState(1 as number);
     const updateElement = () => {
-        fetch(`http://localhost:3000/api/optimize?team=2555500&event=${event}`)
+        fetch(`/api/optimize?team=2555500&event=${event}`)
             .then(data => data.json())
             .then(r => setElements(r.current))
     }
     useEffect(() => updateElement(), [])
     useEffect(() => {
-        fetch('http://localhost:3000/api/teams')
+        fetch('/api/teams')
             .then(data => data.json())
             .then(data => setTeams(data.teams))
     }, [])

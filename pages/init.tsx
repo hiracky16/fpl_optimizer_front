@@ -11,7 +11,7 @@ import { Element } from '../types/types'
 const Home: NextPage = () => {
     const [elements, setElements] = useState([] as Element[]);
     useEffect(() => {
-        fetch("http://localhost:3000/api/init_optimize")
+        fetch("/api/init_optimize")
             .then(data => data.json())
             .then(r => setElements(r.elements))
     }, [])
