@@ -12,17 +12,22 @@ const Home: NextPage = () => {
     const [elements, setElements] = useState([] as Element[]);
     const [teams, setTeams] = useState([] as Team[]);
     const [event, setEvent] = useState(1 as number);
+    useEffect(() => {
+        fetch('/api/teams')
+            .then(data => data.json())
+            .then(r => setTeams(r.teams))
+    }, [])
+    useEffect(() => {
+        fetch("/api/event")
+            .then(data => data.json())
+            .then(r => setEvent(r.next_event))
+    }, [])
     const updateElement = () => {
         fetch(`/api/optimize?team=2555500&event=${event}`)
             .then(data => data.json())
             .then(r => setElements(r.current))
     }
     useEffect(() => updateElement(), [])
-    useEffect(() => {
-        fetch('/api/teams')
-            .then(data => data.json())
-            .then(data => setTeams(data.teams))
-    }, [])
 
     return (
         <div className='container'>
@@ -33,7 +38,7 @@ const Home: NextPage = () => {
                 </div>
             </section>
             <section className='section'>
-                <OptimizeForm event={event} setEvent={setEvent} submit={updateElement} />
+                <OptimizeForm event={event} setEvent={setEvent} submit={updateElement} teams={teams} />
             </section>
             <section className='section'>
                 <Pitch title="イレブン" elements={elements}></Pitch>

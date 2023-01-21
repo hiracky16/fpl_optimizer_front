@@ -3,19 +3,13 @@ import styles from '../styles/InitForm.module.scss'
 
 type Props = {
     event: number
+    teams: { id: number, name: string }[]
     setEvent: (event: number) => void
     submit: () => void
   }
 
 const Form: React.FC<Props> = props => {
-    const [budget, setBudget] = useState(80);
-    const [teams, setTeams] = useState([] as { id: number, name: string }[]);
-    useEffect(() => {
-        // TODO: fix
-        fetch("/api/teams")
-            .then(data => data.json())
-            .then(r => setTeams(r.teams))
-    }, [])
+    const [budget, setBudget] = useState(100);
     const [favoriteTeamId, setFavoriteTeamId] = useState(1)
     const [excludedTeamId, setExcludedTeamId] = useState(1)
     const onDefaultChange = (event: any, setter: Dispatch<SetStateAction<number>>) => {
@@ -34,7 +28,7 @@ const Form: React.FC<Props> = props => {
                 条件
             </div>
             <div className={`tile is-parent ${styles.formContent}`}>
-                <div className="tile is-child">予算: £ {budget} m</div>
+                <div className="tile is-child">予算: £ {budget} m (設定すると余剰資金を残すことができます)</div>
                 <div className="tile is-child">
                     <input
                         className={`slider ${styles.budgetSlider}`}
@@ -68,7 +62,7 @@ const Form: React.FC<Props> = props => {
                     <div className="select">
                         <select value={favoriteTeamId} onChange={(event) => onDefaultChange(event, setFavoriteTeamId)}>
                             {
-                                teams.map((team) => {
+                                props.teams.map((team) => {
                                     return <option key={team.id} value={team.id}>{team.name}</option>;
                                 })
                             }
@@ -84,7 +78,7 @@ const Form: React.FC<Props> = props => {
                     <div className="select">
                         <select value={excludedTeamId} onChange={(event) => onDefaultChange(event, setExcludedTeamId)}>
                             {
-                                teams.map((team) => {
+                                props.teams.map((team) => {
                                     return <option key={team.id} value={team.id}>{team.name}</option>;
                                 })
                             }
