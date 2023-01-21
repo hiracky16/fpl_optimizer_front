@@ -41,7 +41,7 @@ const Home: NextPage = () => {
                 <OptimizeForm event={event} setEvent={setEvent} submit={updateElement} teams={teams} />
             </section>
             <section className='section'>
-                <Pitch title="イレブン" elements={elements}></Pitch>
+                <Pitch title="イレブン" elements={elements} teams={teams}></Pitch>
             </section>
         </div>
     )

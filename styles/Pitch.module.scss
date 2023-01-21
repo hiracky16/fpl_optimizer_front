@@ -10,7 +10,7 @@
 }
 
 .playerIcon {
-    background: red;
+    // background: var(--icon-main-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@
     height: 2em;
     border-radius: 1em;
     border: 0.2em solid;
-    border-color: white;
+    // border-color: var(--icon-sub-color);
     margin: auto;
 }
 
